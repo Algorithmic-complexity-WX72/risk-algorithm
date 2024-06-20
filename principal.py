@@ -19,9 +19,9 @@ def generar_grafo(csv_file, total_nodes):
         # Asignar distancias aleatorias entre nodos
         for i in range(len(lines)):
             for j in range(i+1, len(lines)):
-                distance = random.randint(10, 20)
+                distance = random.randint(1, 20)
                 G[lines[i][0]][lines[j][0]] = distance
-                G[lines[j][0]][lines[i][0]] = distance
+                #G[lines[j][0]][lines[i][0]] = distance
     
     return G
 
@@ -58,11 +58,11 @@ def dijkstra(G, inicio, destino):
             if nueva_distancia < distancias[vecino]:
                 distancias[vecino] = nueva_distancia
                 caminos[vecino] = caminos[nodo_min] + [nodo_min]
-
+    
     return distancias, caminos
 
 dataset = "names.csv"
-nodos_totales = 5
+nodos_totales = 6
 mapa = generar_grafo(dataset, nodos_totales)
 
 dibujar_grafo(mapa)
@@ -77,10 +77,3 @@ if nodo_destino in caminos:
     print(f"El camino más corto desde {nodo_origen} a {nodo_destino} es: {ruta} (Distancia: {distancia})")
 else:
     print(f"No hay un camino válido desde {nodo_origen} a {nodo_destino}")
-
-print("Todas las rutas posibles:")
-for nodo in mapa:
-    if nodo != nodo_origen:
-        ruta = ' -> '.join(caminos[nodo] + [nodo])
-        distancia = distancias[nodo]
-        print(f"{nodo_origen} -> {ruta} (Distancia: {distancia})")
